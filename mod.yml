@@ -1,0 +1,8 @@
+title: Golf
+description: Welcome to Golf! In this mod, your MP bar has become your power meter, and your only way to move is to do a base aerial hit! The higher your current MP, the farther you will go! In this mod, magic spells, besides limits, are completely free, but STT and PL are excluded from this mod's gimmick.
+assets:
+#Lua Scripts
+- name: scripts/golf.lua
+  method: copy
+  source:
+  - name: golf.lua
