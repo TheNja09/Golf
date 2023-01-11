@@ -73,6 +73,12 @@ function Cheats()
 	WriteByte(Sys3+0x7D30,255) -- Sonic Blade Cost
 	WriteByte(Sys3+0x7C10,255) -- Ragnarok Cost
 	WriteByte(Sys3+0x7DC0,255) -- Ars Arcanum Cost
+	WriteFloat(Sys3+0x17D18, 4) -- Valor Form: DS = 12
+	WriteFloat(Sys3+0x17D4C, 4) -- Wisdom Form: DS = 12
+	WriteFloat(Sys3+0x17D80, 3) -- Master Form: DS = 10
+	WriteFloat(Sys3+0x17DB4, 5) -- Final Form: DS = 16
+	WriteFloat(Sys3+0x17DE8, 5) -- Anti Form: DS = 16
+	WriteFloat(Sys3+0x18364, 3) -- Limit Form: DS = 8
 	elseif ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A then
 	WriteFloat(Sys3+0x17CE4, 0.0001) -- Base Speed: DS = 8
 	WriteFloat(Sys3+0x17CE0, 0.0001) -- Walking Speed: DS = 2
