@@ -35,7 +35,45 @@ function Events(M,B,E) --Check for Map, Btl, and Evt
 end
 
 function Cheats()
-	if ReadByte(0x444861) ~= 13 then
+	if ReadByte(Save+0x3524) ~= 0 then
+	WriteByte(Sys3+0x9E0,255) -- Fire Cost
+	WriteByte(Sys3+0x15E0,255) -- Fira Cost
+	WriteByte(Sys3+0x1610,255) -- Firaga Cost
+	WriteByte(Sys3+0xA40,255) -- Blizzard Cost
+	WriteByte(Sys3+0x1640,255) -- Blizzara Cost
+	WriteByte(Sys3+0x1670,255) -- Blizzaga Cost
+	WriteByte(Sys3+0xA10,255) -- Thunder Cost
+	WriteByte(Sys3+0x16A0,255) -- Thundara Cost
+	WriteByte(Sys3+0x16D0,255) -- Thundaga Cost
+	WriteByte(Sys3+0xA70,255) -- Cure Cost
+	WriteByte(Sys3+0x1700,255) -- Cura Cost
+	WriteByte(Sys3+0x1730,255) -- Curaga Cost
+	WriteByte(Sys3+0x1F40,255) -- Magnet Cost
+	WriteByte(Sys3+0x1F70,255) -- Magnera Cost
+	WriteByte(Sys3+0x1FA0,255) -- Magnega Cost
+	WriteByte(Sys3+0x1FD0,255) -- Reflect Cost
+	WriteByte(Sys3+0x2000,255) -- Reflera Cost
+	WriteByte(Sys3+0x2030,255) -- Reflega Cost
+	WriteByte(Sys3+0xE30,255) -- Twin Howl Cost
+	WriteByte(Sys3+0xFB0,255) -- Bushido Cost
+	WriteByte(Sys3+0x1940,255) -- Red Rocket Cost
+	WriteByte(Sys3+0x3F80,255) -- Speedster Cost
+	WriteByte(Sys3+0x40A0,255) -- Bluff Cost
+	WriteByte(Sys3+0x4430,255) -- Wildcat Cost
+	WriteByte(Sys3+0x49A0,255) -- Dance Call Cost
+	WriteByte(Sys3+0x4B80,255) -- Setup Cost
+	WriteByte(Sys3+0x67D0,255) -- Session Cost
+	WriteByte(Sys3+0x5840,255) -- Trinity Limit Cost
+	WriteByte(Sys3+0x5840+0x1830,255) -- (Solo) Trinity Limit Cost
+	WriteByte(Sys3+0x2E10,255) -- Whirli-Goof Cost
+	WriteByte(Sys3+0x3D40,255) -- Knocksmash Cost
+	WriteByte(Sys3+0x3320,255) -- Comet Cost
+	WriteByte(Sys3+0x3E60,255) -- Duck Flare Cost
+	WriteByte(Sys3+0x7E50,255) -- Strike Raid Cost
+	WriteByte(Sys3+0x7D30,255) -- Sonic Blade Cost
+	WriteByte(Sys3+0x7C10,255) -- Ragnarok Cost
+	WriteByte(Sys3+0x7DC0,255) -- Ars Arcanum Cost
+	elseif ReadByte(0x444861) ~= 13 or ReadByte(Now+0) ~= 0x0A and ReadByte(Save+0x3524) == 0 then
 	WriteFloat(Sys3+0x17CE4, 0.0001) -- Base Speed: DS = 8
 	WriteFloat(Sys3+0x17CE0, 0.0001) -- Walking Speed: DS = 2
 	WriteFloat(0x250D332, 0.0001) -- Glide 1 Speed (Default: 16)
@@ -97,7 +135,7 @@ function Cheats()
 	WriteFloat(0x250D3CA, 0)
 	WriteFloat(0x250D40E, 0)
 	WriteFloat(0x250D452, 0)
-	elseif ReadByte(0x444861) == 13 or ReadByte(Now+0) ~= 0x0A then
+	elseif ReadByte(0x444861) == 13 or ReadByte(Now+0) == 0x0A then
 	WriteFloat(Sys3+0x17CE4, 8) -- Base Speed: DS = 8
 	WriteFloat(Sys3+0x17CE0, 2) -- Walking Speed: DS = 2
 	WriteFloat(0x250D332, 16) -- Glide 1 Speed (Default: 16)
@@ -141,52 +179,14 @@ function Cheats()
 	WriteFloat(0x250D3CA, 0.95)
 	WriteFloat(0x250D40E, 0.97)
 	WriteFloat(0x250D452, 0.98)
-	elseif ReadByte(Save+0x3524) ~= 0 then
-	WriteByte(Sys3+0x9E0,255) -- Fire Cost
-	WriteByte(Sys3+0x15E0,255) -- Fira Cost
-	WriteByte(Sys3+0x1610,255) -- Firaga Cost
-	WriteByte(Sys3+0xA40,255) -- Blizzard Cost
-	WriteByte(Sys3+0x1640,255) -- Blizzara Cost
-	WriteByte(Sys3+0x1670,255) -- Blizzaga Cost
-	WriteByte(Sys3+0xA10,255) -- Thunder Cost
-	WriteByte(Sys3+0x16A0,255) -- Thundara Cost
-	WriteByte(Sys3+0x16D0,255) -- Thundaga Cost
-	WriteByte(Sys3+0xA70,255) -- Cure Cost
-	WriteByte(Sys3+0x1700,255) -- Cura Cost
-	WriteByte(Sys3+0x1730,255) -- Curaga Cost
-	WriteByte(Sys3+0x1F40,255) -- Magnet Cost
-	WriteByte(Sys3+0x1F70,255) -- Magnera Cost
-	WriteByte(Sys3+0x1FA0,255) -- Magnega Cost
-	WriteByte(Sys3+0x1FD0,255) -- Reflect Cost
-	WriteByte(Sys3+0x2000,255) -- Reflera Cost
-	WriteByte(Sys3+0x2030,255) -- Reflega Cost
-	WriteByte(Sys3+0xE30,255) -- Twin Howl Cost
-	WriteByte(Sys3+0xFB0,255) -- Bushido Cost
-	WriteByte(Sys3+0x1940,255) -- Red Rocket Cost
-	WriteByte(Sys3+0x3F80,255) -- Speedster Cost
-	WriteByte(Sys3+0x40A0,255) -- Bluff Cost
-	WriteByte(Sys3+0x4430,255) -- Wildcat Cost
-	WriteByte(Sys3+0x49A0,255) -- Dance Call Cost
-	WriteByte(Sys3+0x4B80,255) -- Setup Cost
-	WriteByte(Sys3+0x67D0,255) -- Session Cost
-	WriteByte(Sys3+0x5840,255) -- Trinity Limit Cost
-	WriteByte(Sys3+0x5840+0x1830,255) -- (Solo) Trinity Limit Cost
-	WriteByte(Sys3+0x2E10,255) -- Whirli-Goof Cost
-	WriteByte(Sys3+0x3D40,255) -- Knocksmash Cost
-	WriteByte(Sys3+0x3320,255) -- Comet Cost
-	WriteByte(Sys3+0x3E60,255) -- Duck Flare Cost
-	WriteByte(Sys3+0x7E50,255) -- Strike Raid Cost
-	WriteByte(Sys3+0x7D30,255) -- Sonic Blade Cost
-	WriteByte(Sys3+0x7C10,255) -- Ragnarok Cost
-	WriteByte(Sys3+0x7DC0,255) -- Ars Arcanum Cost
 	end
 	if ReadByte(Slot1+0x180) < ReadByte(Slot1+0x184) and Reverse == false and ReadByte(Save+0x3524) == 0 and ReadShort(0x6877DA) == 0 and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A then
 	WriteByte(Slot1+0x180, ReadByte(Slot1+0x180) + 1)
 	elseif ReadByte(Slot1+0x180) == ReadByte(Slot1+0x184) and Reverse == false then
 	Reverse = true
-	elseif ReadByte(Slot1+0x180) > 0 and Reverse == true and ReadByte(Save+0x3524) == 0 and ReadShort(0x6877DA) == 0 and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A then
+	elseif ReadByte(Slot1+0x180) > 1 and Reverse == true and ReadByte(Save+0x3524) == 0 and ReadShort(0x6877DA) == 0 and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A then
 	WriteByte(Slot1+0x180, ReadByte(Slot1+0x180) - 1)
-	elseif ReadByte(Slot1+0x180) == 0 and Reverse == true then
+	elseif ReadByte(Slot1+0x180) == 1 and Reverse == true then
 	Reverse = false
 	end
 	WriteFloat(0x2530B8A, ReadByte(Slot1+0x180) * 1.25)
