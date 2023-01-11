@@ -101,7 +101,7 @@ function Cheats()
 	WriteFloat(0x250D3CA, 0)
 	WriteFloat(0x250D40E, 0)
 	WriteFloat(0x250D452, 0)
-	elseif ReadByte(0x444861) == 13 then
+	elseif ReadByte(0x444861) == 13 or ReadByte(Now+0) ~= 0x0A then
 	WriteFloat(Sys3+0x17CE4, 8) -- Base Speed: DS = 8
 	WriteFloat(Sys3+0x17CE0, 2) -- Walking Speed: DS = 2
 	WriteFloat(0x250D332, 16) -- Glide 1 Speed (Default: 16)
