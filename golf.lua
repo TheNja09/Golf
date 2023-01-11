@@ -73,7 +73,7 @@ function Cheats()
 	WriteByte(Sys3+0x7D30,255) -- Sonic Blade Cost
 	WriteByte(Sys3+0x7C10,255) -- Ragnarok Cost
 	WriteByte(Sys3+0x7DC0,255) -- Ars Arcanum Cost
-	elseif ReadByte(0x444861) ~= 13 or ReadByte(Now+0) ~= 0x0A and ReadByte(Save+0x3524) == 0 then
+	elseif ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A then
 	WriteFloat(Sys3+0x17CE4, 0.0001) -- Base Speed: DS = 8
 	WriteFloat(Sys3+0x17CE0, 0.0001) -- Walking Speed: DS = 2
 	WriteFloat(0x250D332, 0.0001) -- Glide 1 Speed (Default: 16)
