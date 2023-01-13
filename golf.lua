@@ -196,5 +196,5 @@ function Cheats()
 	Reverse = false
 	end
 	WriteFloat(0x2530B8A, ReadByte(Slot1+0x180) * 1.25)
-	WriteFloat(0x2530B7A, ReadByte(Slot1+0x180) * 3)
+	WriteFloat(0x2530B7A, ReadByte(Slot1+0x180) * 4.25)
 end
