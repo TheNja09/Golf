@@ -17,7 +17,7 @@
 - id: 0x3DFC
   en: '{:color #FFFF0080}Hidden Dragon
 - id: 0x3FDD
-  en: '{:color #FFAA0080}Golf Club Stats:\n{:color #55FFFF80}+500% Charging Time{:color #FFFFFF80} and {:color #FF555580}-80 PW\n{:color #FFFFFF80}Good for making minor adjustments!{:reset}'
+  en: '{:color #FFAA0080}Golf Club Stats:\n{:color #55FFFF80}+500% Charging Time{:reset} and {:color #FF555580}-80 PW\n{:color #FFFFFF80}Good for making minor adjustments!{:reset}'
 - id: 0x3E2E
   en: '{:color #FFFF0080}Hero´s Crest'
 - id: 0x3E2F
