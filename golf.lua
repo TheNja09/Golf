@@ -1,4 +1,7 @@
 Reverse = true
+Fenrir = 1
+Random = 60
+Dragon = 5
 function _OnFrame()
     World = ReadByte(Now + 0x00)
     Room = ReadByte(Now + 0x01)
@@ -35,6 +38,7 @@ function Events(M,B,E) --Check for Map, Btl, and Evt
 end
 
 function Cheats()
+local soraGravityPointer=ReadLong(0x1B2512)+0x138
 	if ReadByte(Save+0x3524) ~= 0 then
 	WriteByte(Sys3+0x9E0,255) -- Fire Cost
 	WriteByte(Sys3+0x15E0,255) -- Fira Cost
@@ -186,8 +190,33 @@ function Cheats()
 	WriteFloat(0x250D40E, 0.97)
 	WriteFloat(0x250D452, 0.98)
 	end
-	if ReadByte(Slot1+0x180) < ReadByte(Slot1+0x184) and Reverse == false and ReadByte(Save+0x3524) == 0 and ReadShort(0x6877DA) == 0 and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A then
+	if ReadByte(Slot1+0x180) < ReadByte(Slot1+0x184) and Reverse == false and ReadByte(Save+0x3524) == 0 and ReadShort(0x6877DA) == 0 and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A and ReadShort(Save+0x24F0) ~= 0x01F3 and ReadShort(Save+0x24F0) ~= 0x002B and ReadShort(Save+0x24F0) ~= 0x01E1 then
 	WriteByte(Slot1+0x180, ReadByte(Slot1+0x180) + 1)
+	elseif ReadByte(Slot1+0x180) < ReadByte(Slot1+0x184) and Reverse == false and ReadByte(Save+0x3524) == 0 and ReadShort(0x6877DA) == 0 and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A and ReadShort(Save+0x24F0) == 0x01F3 then
+	Fenrir = Fenrir - 1
+		if Fenrir <= 0 then
+		WriteByte(Slot1+0x180, ReadByte(Slot1+0x180) + 1)
+		Fenrir = 2
+		end
+	elseif ReadByte(Save+0x3524) == 0 and ReadShort(0x6877DA) == 0 and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A and ReadShort(Save+0x24F0) == 0x002B then
+	Random = Random - 1
+		if Random <= 0 then
+		WriteByte(Slot1+0x180, math.random(1, 150))
+		Random = 60
+		end
+	elseif ReadByte(Slot1+0x180) < ReadByte(Slot1+0x184) and ReadByte(Save+0x3524) == 0 and ReadShort(0x6877DA) == 0 and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A and ReadShort(Save+0x24F0) == 0x01E1 then
+	Dragon = Dragon - 1
+		if Dragon <= 0 and Reverse == false then
+		WriteByte(Slot1+0x180, ReadByte(Slot1+0x180) + 1)
+		Dragon = 5
+		elseif ReadByte(Slot1+0x180) == ReadByte(Slot1+0x184) and Reverse == false then
+		Reverse = true
+		elseif Dragon <= 0 and ReadByte(Slot1+0x180) > 1 and Reverse == true then
+		WriteByte(Slot1+0x180, ReadByte(Slot1+0x180) - 1)
+		Dragon = 5
+		elseif ReadByte(Slot1+0x180) == 1 and Reverse == true then
+		Reverse = false
+		end
 	elseif ReadByte(Slot1+0x180) == ReadByte(Slot1+0x184) and Reverse == false then
 	Reverse = true
 	elseif ReadByte(Slot1+0x180) > 1 and Reverse == true and ReadByte(Save+0x3524) == 0 and ReadShort(0x6877DA) == 0 and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A then
@@ -195,6 +224,47 @@ function Cheats()
 	elseif ReadByte(Slot1+0x180) == 1 and Reverse == true then
 	Reverse = false
 	end
+	--Fenrir gives +25 PW, but decreases charge time
+	if ReadShort(Save+0x24F0) == 0x01F3 and ReadByte(0x1F1509F) == 0 then
+	WriteByte(Slot1+0x184, ReadByte(Slot1+0x184) + 25)
+	WriteByte(0x1F1509F, 1)
+	elseif ReadShort(Save+0x24F0) ~= 0x01F3 and ReadByte(0x1F1509F) == 1 then
+	WriteByte(Slot1+0x184, ReadByte(Slot1+0x184) - 25)
+	WriteByte(0x1F1509F, 0)
+	end
+	--Ultima Weapon increases distance, but decreases height. Hero's Crest increases height, but decreases distance
+	if ReadShort(Save+0x24F0) == 0x01F4 then
+	WriteFloat(0x2530B8A, ReadByte(Slot1+0x180) * 2)
+	WriteFloat(0x2530B7A, ReadByte(Slot1+0x180) * 2)
+	elseif ReadShort(Save+0x24F0) == 0x01E4 then
+	WriteFloat(0x2530B8A, ReadByte(Slot1+0x180) * 0.75)
+	WriteFloat(0x2530B7A, ReadByte(Slot1+0x180) * 8)
+	elseif ReadShort(Save+0x24F0) ~= 0x01F4 and ReadShort(Save+0x24F0) ~= 0x01E4 then
 	WriteFloat(0x2530B8A, ReadByte(Slot1+0x180) * 1.25)
-	WriteFloat(0x2530B7A, ReadByte(Slot1+0x180) * 4.25)
+	WriteFloat(0x2530B7A, ReadByte(Slot1+0x180) * 4.125)
+	end
+	--Hidden Dragon acts as a Putter
+	if ReadShort(Save+0x24F0) == 0x01E1 and ReadByte(0x1F15010) == 0 then
+	WriteByte(Slot1+0x184, ReadByte(Slot1+0x184) - 80)
+	WriteByte(0x1F15010, 1)
+	elseif ReadShort(Save+0x24F0) ~= 0x01E1 and ReadByte(0x1F15010) == 1 then
+	WriteByte(Slot1+0x184, ReadByte(Slot1+0x184) + 80)
+	WriteByte(0x1F15010, 0)
+	end
+	--Wishling Lamp decreases Terminal Velocity, but decreases PW
+	if ReadShort(Save+0x24F0) == 0x01EC and ReadByte(0x1F15011) == 0 then
+	WriteByte(Slot1+0x184, ReadByte(Slot1+0x184) - 50)
+	WriteByte(0x1F15011, 1)
+	elseif ReadShort(Save+0x24F0) ~= 0x01EC and ReadByte(0x1F15011) == 1 then
+	WriteByte(Slot1+0x184, ReadByte(Slot1+0x184) + 50)
+	WriteFloat(soraGravityPointer, 16, true)
+	WriteByte(0x1F15011, 0)
+    end
+	if ReadShort(Save+0x24F0) == 0x01EC then
+	WriteFloat(soraGravityPointer, 5, true)
+	elseif ReadShort(Save+0x24F0) == 0x01F0 then --Mysterious Abyss increases Terminal Velocity
+	WriteFloat(soraGravityPointer, 48, true)
+	elseif ReadShort(Save+0x24F0) ~= 0x01F0 and ReadShort(Save+0x24F0) ~= 0x01EC then
+	WriteFloat(soraGravityPointer, 16, true)
+	end
 end
