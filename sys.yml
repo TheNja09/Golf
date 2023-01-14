@@ -19,7 +19,7 @@
 - id: 0x3E3F
   en: '{:color #FFAA0080}Golf Club Stats:
 
-    {:color #55FFFF80}-400% Terminal Velocity
+    {:color #55FFFF80}-200% Terminal Velocity
 
     {:color #FF555580}-50 PW{:reset}'
 - id: 0x3E46
