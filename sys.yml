@@ -49,6 +49,6 @@
 - id: 0x05C7
   en: '{:color #FFAA0080}Golf Club Stats:
 
-    {:color #FFFFFF80}Gives you a random PW value
+    {:color #FFFFFF80}Gives you a random PW
 
-    {:color #FFFFFF80}every 60 seconds!{:reset}'
+    {:color #FFFFFF80}value every second!{:reset}'
