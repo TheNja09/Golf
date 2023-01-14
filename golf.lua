@@ -241,7 +241,7 @@ local soraGravityPointer=ReadLong(0x1B2512)+0x138
 	WriteFloat(0x2530B7A, ReadByte(Slot1+0x180) * 8)
 	elseif ReadShort(Save+0x24F0) ~= 0x01F4 and ReadShort(Save+0x24F0) ~= 0x01E4 then
 	WriteFloat(0x2530B8A, ReadByte(Slot1+0x180) * 1.25)
-	WriteFloat(0x2530B7A, ReadByte(Slot1+0x180) * 4.125)
+	WriteFloat(0x2530B7A, ReadByte(Slot1+0x180) * 4)
 	end
 	--Hidden Dragon acts as a Putter
 	if ReadShort(Save+0x24F0) == 0x01E1 and ReadByte(0x1F15010) == 0 then
@@ -261,7 +261,7 @@ local soraGravityPointer=ReadLong(0x1B2512)+0x138
 	WriteByte(0x1F15011, 0)
     end
 	if ReadShort(Save+0x24F0) == 0x01EC then
-	WriteFloat(soraGravityPointer, 5, true)
+	WriteFloat(soraGravityPointer, 4, true)
 	elseif ReadShort(Save+0x24F0) == 0x01F0 then --Mysterious Abyss increases Terminal Velocity
 	WriteFloat(soraGravityPointer, 48, true)
 	elseif ReadShort(Save+0x24F0) ~= 0x01F0 and ReadShort(Save+0x24F0) ~= 0x01EC then
