@@ -225,12 +225,14 @@ local soraGravityPointer=ReadLong(0x1B2512)+0x138
 	Reverse = false
 	end
 	--Fenrir gives +25 PW, but decreases charge time
-	if ReadShort(Save+0x24F0) == 0x01F3 and ReadByte(0x1F1509F) == 0 then
-	WriteByte(Slot1+0x184, ReadByte(Slot1+0x184) + 25)
-	WriteByte(0x1F1509F, 1)
-	elseif ReadShort(Save+0x24F0) ~= 0x01F3 and ReadByte(0x1F1509F) == 1 then
-	WriteByte(Slot1+0x184, ReadByte(Slot1+0x184) - 25)
-	WriteByte(0x1F1509F, 0)
+	if ReadShort(Save+0x24F0) == 0x01F3 then
+	WriteByte(Slot1+0x184, 145)
+	elseif ReadShort(Save+0x24F0) == 0x01EC then
+	WriteByte(Slot1+0x184, 70)
+	elseif ReadShort(Save+0x24F0) == 0x01E1 then
+	WriteByte(Slot1+0x184, 40)
+	else
+	WriteByte(Slot1+0x184, 120)
 	end
 	--Ultima Weapon increases distance, but decreases height. Hero's Crest increases height, but decreases distance
 	if ReadShort(Save+0x24F0) == 0x01F4 then
@@ -243,23 +245,6 @@ local soraGravityPointer=ReadLong(0x1B2512)+0x138
 	WriteFloat(0x2530B8A, ReadByte(Slot1+0x180) * 1.25)
 	WriteFloat(0x2530B7A, ReadByte(Slot1+0x180) * 4)
 	end
-	--Hidden Dragon acts as a Putter
-	if ReadShort(Save+0x24F0) == 0x01E1 and ReadByte(0x1F15010) == 0 then
-	WriteByte(Slot1+0x184, ReadByte(Slot1+0x184) - 80)
-	WriteByte(0x1F15010, 1)
-	elseif ReadShort(Save+0x24F0) ~= 0x01E1 and ReadByte(0x1F15010) == 1 then
-	WriteByte(Slot1+0x184, ReadByte(Slot1+0x184) + 80)
-	WriteByte(0x1F15010, 0)
-	end
-	--Wishling Lamp decreases Terminal Velocity, but decreases PW
-	if ReadShort(Save+0x24F0) == 0x01EC and ReadByte(0x1F15011) == 0 then
-	WriteByte(Slot1+0x184, ReadByte(Slot1+0x184) - 50)
-	WriteByte(0x1F15011, 1)
-	elseif ReadShort(Save+0x24F0) ~= 0x01EC and ReadByte(0x1F15011) == 1 then
-	WriteByte(Slot1+0x184, ReadByte(Slot1+0x184) + 50)
-	WriteFloat(soraGravityPointer, 16, true)
-	WriteByte(0x1F15011, 0)
-    end
 	if ReadShort(Save+0x24F0) == 0x01EC then
 	WriteFloat(soraGravityPointer, 8, true)
 	elseif ReadShort(Save+0x24F0) == 0x01F0 then --Mysterious Abyss increases Terminal Velocity
