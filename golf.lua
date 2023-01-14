@@ -261,7 +261,7 @@ local soraGravityPointer=ReadLong(0x1B2512)+0x138
 	WriteByte(0x1F15011, 0)
     end
 	if ReadShort(Save+0x24F0) == 0x01EC then
-	WriteFloat(soraGravityPointer, 4, true)
+	WriteFloat(soraGravityPointer, 8, true)
 	elseif ReadShort(Save+0x24F0) == 0x01F0 then --Mysterious Abyss increases Terminal Velocity
 	WriteFloat(soraGravityPointer, 48, true)
 	elseif ReadShort(Save+0x24F0) ~= 0x01F0 and ReadShort(Save+0x24F0) ~= 0x01EC then
