@@ -1,0 +1,54 @@
+- id: 0x3E4C
+  en: '{:color #FFFF0080}Fenrir'
+- id: 0x3E4D
+  en: '{:color #FFAA0080}Golf Club Stats:
+
+    {:color #55FFFF80}+25 Max PW{:reset}
+
+    {:color #FF555580}+100% Charging Time{:reset}'
+- id: 0x3E4E
+  en: '{:color #FFFF0080}Ultima Weapon'
+- id: 0x3E4F
+  en: '{:color #FFAA0080}Golf Club Stats:
+
+    {:color #55FFFF80}+160% Horizontal Distance{:reset}
+
+    {:color #FF555580}-50% Vertical Distance{:reset}'
+- id: 0x3E3E
+  en: '{:color #FFFF0080}Wishing Lamp'
+- id: 0x3E3F
+  en: '{:color #FFAA0080}Golf Club Stats:
+
+    {:color #55FFFF80}-400% Terminal Velocity{:reset}
+
+    {:color #FF555580}-50 PW{:reset}'
+- id: 0x3E46
+  en: '{:color #FFFF0080}Mysterious Abyss'
+- id: 0x3E47
+  en: '{:color #FFAA0080}Golf Club Stats:
+
+    {:color #55FFFF80}+300% Terminal Velocity{:reset}'
+- id: 0x3DFC
+  en: '{:color #FFFF0080}Hidden Dragon
+- id: 0x3FDD
+  en: '{:color #FFAA0080}Golf Club Stats:
+
+    {:color #55FFFF80}+500% Charging Time{:reset}{:color #FFFFFF80} and {:color #FF555580}-80 PW{:reset}
+
+    {:color #FFFFFF80}Good for making minor adjustments!{:reset}'
+- id: 0x3E2E
+  en: '{:color #FFFF0080}Hero´s Crest'
+- id: 0x3E2F
+  en: '{:color #FFAA0080}Golf Club Stats:
+
+    {:color #55FFFF80}+200% Vertical Distance{:reset}
+
+    {:color #FF555580}-60% Horizontal Distance{:reset}'
+- id: 0x05C6
+  en: '{:color #FFFF0080}Oblivion'
+- id: 0x05C7
+  en: '{:color #FFAA0080}Golf Club Stats:
+
+    {:color #FFFFFF80}Gives you a random PW value{:reset}
+
+    {:color #FFFFFF80}every 60 seconds!{:reset}'
