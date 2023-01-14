@@ -15,7 +15,7 @@
 - id: 0x3E47
   en: '{:color #FFAA0080}Golf Club Stats:\n{:color #55FFFF80}+300% Terminal Velocity{:reset}'
 - id: 0x3DFC
-  en: '{:color #FFFF0080}Hidden Dragon
+  en: '{:color #FFFF0080}Hidden Dragon'
 - id: 0x3FDD
   en: '{:color #FFAA0080}Golf Club Stats:\n{:color #55FFFF80}+500% Charging Time{:reset} and {:color #FF555580}-80 PW\n{:color #FFFFFF80}Good for making minor adjustments!{:reset}'
 - id: 0x3E2E
