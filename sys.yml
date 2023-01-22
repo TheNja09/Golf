@@ -3,37 +3,37 @@
 - id: 0x3E4D
   en: '{:color #FFAA0080}Golf Club Stats:
 
-    {:color #55FFFF80}+25 Max PW
+    {:color #55FFFF80}+80 Max PW
 
-    {:color #FF555580}+100% Charging Time{:reset}'
+    {:color #FF555580}+100% Positive Charge Time{:reset}'
 - id: 0x3E4E
   en: '{:color #FFFF0080}Ultima Weapon'
 - id: 0x3E4F
   en: '{:color #FFAA0080}Golf Club Stats:
 
-    {:color #55FFFF80}+160% Horizontal Distance
+    {:color #55FFFF80}Doubled Horizontal Distance
 
-    {:color #FF555580}-50% Vertical Distance{:reset}'
+    {:color #FF555580}Halved Vertical Distance{:reset}'
 - id: 0x3E3E
   en: '{:color #FFFF0080}Wishing Lamp'
 - id: 0x3E3F
   en: '{:color #FFAA0080}Golf Club Stats:
 
-    {:color #55FFFF80}-200% Terminal Velocity
+    {:color #55FFFF80}1/4th Max Terminal Velocity
 
-    {:color #FF555580}-50 PW{:reset}'
+    {:color #FF555580}-60 PW{:reset}'
 - id: 0x3E46
   en: '{:color #FFFF0080}Mysterious Abyss'
 - id: 0x3E47
   en: '{:color #FFAA0080}Golf Club Stats:
 
-    {:color #55FFFF80}+300% Terminal Velocity{:reset}'
+    {:color #55FFFF80}4x Max Terminal Velocity{:reset}'
 - id: 0x3DFC
   en: '{:color #FFFF0080}Hidden Dragon'
 - id: 0x3DFD
   en: '{:color #FFAA0080}Golf Club Stats:
 
-    {:color #55FFFF80}+500% Charging Time{:color #FFFFFF80}, but {:color #FF555580}-80 PW
+    {:color #55FFFF80}+500% Charging Time{:color #FFFFFF80}, but {:color #FF555580}-100 PW
 
     {:color #FFFFFF80}Good for making minor adjustments!{:reset}'
 - id: 0x3E2E
@@ -41,9 +41,9 @@
 - id: 0x3E2F
   en: '{:color #FFAA0080}Golf Club Stats:
 
-    {:color #55FFFF80}+200% Vertical Distance
+    {:color #55FFFF80}Double Vertical Distance
 
-    {:color #FF555580}-60% Horizontal Distance{:reset}'
+    {:color #FF555580}Halved Horizontal Distance{:reset}'
 - id: 0x05C6
   en: '{:color #FFFF0080}Oblivion'
 - id: 0x05C7
