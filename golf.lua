@@ -46,7 +46,7 @@ local _CurrAnimPointer = ReadShort(ReadLong(0x00AD4218-0x56454E) + 0x180, true)
 local animpointer=ReadLong(0x1B2512)+0x2A8
 local soraGravityPointer=ReadLong(0x1B2512)+0x138
 local L2 = ReadLong(0x2494573) > 500000 and ReadLong(0x2494573) < 1000000
-	if L2 == true and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A then --If L2 is pressed
+	if L2 == true and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A and ReadByte(Save+0x3524) == 0 then --If L2 is pressed
 		if ReadByte(0x24795F1-0x56454E) == 0 or ReadByte(0x24795F1-0x56454E) == 2 then
 		CurrStorage = ReadByte(Slot1+0x180)
 		MaxStorage = ReadByte(Slot1+0x184)
@@ -149,7 +149,7 @@ local L2 = ReadLong(0x2494573) > 500000 and ReadLong(0x2494573) < 1000000
 			WriteByte(Slot1+0x180, 0)
 		else WriteFloat(animpointer, 1, true)
 		end
-	elseif L2 == false and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A then
+	elseif L2 == false and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A and ReadByte(Save+0x3524) == 0 then
 		if ReadByte(0x24795F1-0x56454E) == 1 then
 		WriteByte(Slot1+0x180, CurrStorage)
 		WriteByte(Slot1+0x184, MaxStorage)
