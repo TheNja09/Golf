@@ -1,6 +1,7 @@
-Reverse = true
-Fenrir = 1
-Random = 60
+CurrStorage = 120
+MaxStorage = 120
+Oblivion = 60
+Fenrir = 2
 Dragon = 5
 function _OnFrame()
     World = ReadByte(Now + 0x00)
@@ -38,8 +39,67 @@ function Events(M,B,E) --Check for Map, Btl, and Evt
 end
 
 function Cheats()
+--Backtrack = ReadByte(0x24795F1-0x56454E)
+--MPSetter = ReadByte(0x24795F2-0x56454E)
+--Reverse = ReadByte(0x24795F3-0x56454E)
+local _CurrAnimPointer = ReadShort(ReadLong(0x00AD4218-0x56454E) + 0x180, true)
+local animpointer=ReadLong(0x1B2512)+0x2A8
 local soraGravityPointer=ReadLong(0x1B2512)+0x138
-	if ReadByte(Save+0x3524) ~= 0 then
+local L2 = ReadLong(0x2494573) > 500000 and ReadLong(0x2494573) < 1000000
+	if L2 == true and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A then --If L2 is pressed
+		if ReadByte(0x24795F1-0x56454E) == 0 or ReadByte(0x24795F1-0x56454E) == 2 then
+		CurrStorage = ReadByte(Slot1+0x180)
+		MaxStorage = ReadByte(Slot1+0x184)
+		WriteByte(0x24795F1-0x56454E, 1)
+		end
+		if ReadByte(0x24795F2-0x56454E) == 0 then
+		WriteByte(Slot1+0x180, 0)
+		WriteByte(0x24795F2-0x56454E, 1)
+		end
+		if ReadShort(Save+0x24F0) == 0x002B then
+		Oblivion = Oblivion - 1
+			if Oblivion <= 0 then
+			WriteByte(Slot1+0x184, math.random(1, 160))
+			WriteByte(Slot1+0x180, ReadByte(Slot1+0x184))
+			Oblivion = 60
+			end
+		elseif ReadShort(Save+0x24F0) == 0x01F3 then
+			Fenrir = Fenrir - 1
+			if Fenrir <= 0 and ReadByte(0x24795F3-0x56454E) == 0 then
+				if ReadByte(Slot1+0x180) < ReadByte(Slot1+0x184) then
+				WriteByte(Slot1+0x180, ReadByte(Slot1+0x180) + 1)
+				Fenrir = 2
+				end
+			elseif ReadByte(Slot1+0x180) == ReadByte(Slot1+0x184) and ReadByte(0x24795F3-0x56454E) == 0 then
+			WriteByte(0x24795F3-0x56454E, 1)
+			elseif ReadByte(Slot1+0x180) > 0 and ReadByte(0x24795F3-0x56454E) == 1 then
+			WriteByte(Slot1+0x180, ReadByte(Slot1+0x180) - 1)
+			elseif ReadByte(Slot1+0x180) == 0 and ReadByte(0x24795F3-0x56454E) == 1 then
+			WriteByte(0x24795F3-0x56454E, 0)
+			end
+		elseif ReadShort(Save+0x24F0) == 0x01E1 then
+			Dragon = Dragon - 1
+			if Dragon <= 0 then
+				Dragon = 5
+				if ReadByte(Slot1+0x180) < ReadByte(Slot1+0x184) and ReadByte(0x24795F3-0x56454E) == 0 then
+				WriteByte(Slot1+0x180, ReadByte(Slot1+0x180) + 1)
+				elseif ReadByte(Slot1+0x180) == ReadByte(Slot1+0x184) and ReadByte(0x24795F3-0x56454E) == 0 then
+				WriteByte(0x24795F3-0x56454E, 1)
+				elseif ReadByte(Slot1+0x180) > 0 and ReadByte(0x24795F3-0x56454E) == 1 then
+				WriteByte(Slot1+0x180, ReadByte(Slot1+0x180) - 1)
+				elseif ReadByte(Slot1+0x180) == 0 and ReadByte(0x24795F3-0x56454E) == 1 then
+				WriteByte(0x24795F3-0x56454E, 0)
+				end
+			end
+		elseif ReadByte(Slot1+0x180) < ReadByte(Slot1+0x184) and ReadByte(0x24795F3-0x56454E) == 0 then
+		WriteByte(Slot1+0x180, ReadByte(Slot1+0x180) + 1)
+		elseif ReadByte(Slot1+0x180) == ReadByte(Slot1+0x184) and ReadByte(0x24795F3-0x56454E) == 0 then
+		WriteByte(0x24795F3-0x56454E, 1)
+		elseif ReadByte(Slot1+0x180) > 0 and ReadByte(0x24795F3-0x56454E) == 1 then
+		WriteByte(Slot1+0x180, ReadByte(Slot1+0x180) - 1)
+		elseif ReadByte(Slot1+0x180) == 0 and ReadByte(0x24795F3-0x56454E) == 1 then
+		WriteByte(0x24795F3-0x56454E, 0)
+		end
 	WriteByte(Sys3+0x9E0,255) -- Fire Cost
 	WriteByte(Sys3+0x15E0,255) -- Fira Cost
 	WriteByte(Sys3+0x1610,255) -- Firaga Cost
@@ -58,113 +118,48 @@ local soraGravityPointer=ReadLong(0x1B2512)+0x138
 	WriteByte(Sys3+0x1FD0,255) -- Reflect Cost
 	WriteByte(Sys3+0x2000,255) -- Reflera Cost
 	WriteByte(Sys3+0x2030,255) -- Reflega Cost
-	WriteByte(Sys3+0xE30,255) -- Twin Howl Cost
-	WriteByte(Sys3+0xFB0,255) -- Bushido Cost
-	WriteByte(Sys3+0x1940,255) -- Red Rocket Cost
-	WriteByte(Sys3+0x3F80,255) -- Speedster Cost
-	WriteByte(Sys3+0x40A0,255) -- Bluff Cost
-	WriteByte(Sys3+0x4430,255) -- Wildcat Cost
-	WriteByte(Sys3+0x49A0,255) -- Dance Call Cost
-	WriteByte(Sys3+0x4B80,255) -- Setup Cost
-	WriteByte(Sys3+0x67D0,255) -- Session Cost
-	WriteByte(Sys3+0x5840,255) -- Trinity Limit Cost
-	WriteByte(Sys3+0x5840+0x1830,255) -- (Solo) Trinity Limit Cost
-	WriteByte(Sys3+0x2E10,255) -- Whirli-Goof Cost
-	WriteByte(Sys3+0x3D40,255) -- Knocksmash Cost
-	WriteByte(Sys3+0x3320,255) -- Comet Cost
-	WriteByte(Sys3+0x3E60,255) -- Duck Flare Cost
-	WriteByte(Sys3+0x7E50,255) -- Strike Raid Cost
-	WriteByte(Sys3+0x7D30,255) -- Sonic Blade Cost
-	WriteByte(Sys3+0x7C10,255) -- Ragnarok Cost
-	WriteByte(Sys3+0x7DC0,255) -- Ars Arcanum Cost
-	WriteFloat(Sys3+0x17D18, 4) -- Valor Form: DS = 12
-	WriteFloat(Sys3+0x17D4C, 4) -- Wisdom Form: DS = 12
-	WriteFloat(Sys3+0x17D80, 3) -- Master Form: DS = 10
-	WriteFloat(Sys3+0x17DB4, 5) -- Final Form: DS = 16
-	WriteFloat(Sys3+0x17DE8, 5) -- Anti Form: DS = 16
-	WriteFloat(Sys3+0x18364, 3) -- Limit Form: DS = 8
-	elseif ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A then
-	WriteFloat(Sys3+0x17CE4, 0.0001) -- Base Speed: DS = 8
-	WriteFloat(Sys3+0x17CE0, 0.0001) -- Walking Speed: DS = 2
-	WriteFloat(0x250D332, 0.0001) -- Glide 1 Speed (Default: 16)
-	WriteFloat(0x250D376, 0.0001) -- Glide 2 Speed (Default: 20)
-	WriteFloat(0x250D3BA, 0.0001) -- Glide 3 Speed (Default: 24)
-	WriteFloat(0x250D3FE, 0.0001) -- Glide MAX Speed (Default: 32)
-	WriteFloat(0x250D442, 0.0001) -- Glide AX2 Speed (Default: 64)
-	WriteFloat(0x250CEC6, 0.0001) -- Aerial Recovery Movement Speed
-	WriteByte(Sys3+0x9E0,0) -- Fire Cost
-	WriteByte(Sys3+0x15E0,0) -- Fira Cost
-	WriteByte(Sys3+0x1610,0) -- Firaga Cost
-	WriteByte(Sys3+0xA40,0) -- Blizzard Cost
-	WriteByte(Sys3+0x1640,0) -- Blizzara Cost
-	WriteByte(Sys3+0x1670,0) -- Blizzaga Cost
-	WriteByte(Sys3+0xA10,0) -- Thunder Cost
-	WriteByte(Sys3+0x16A0,0) -- Thundara Cost
-	WriteByte(Sys3+0x16D0,0) -- Thundaga Cost
-	WriteByte(Sys3+0xA70,0) -- Cure Cost
-	WriteByte(Sys3+0x1700,0) -- Cura Cost
-	WriteByte(Sys3+0x1730,0) -- Curaga Cost
-	WriteByte(Sys3+0x1F40,0) -- Magnet Cost
-	WriteByte(Sys3+0x1F70,0) -- Magnera Cost
-	WriteByte(Sys3+0x1FA0,0) -- Magnega Cost
-	WriteByte(Sys3+0x1FD0,0) -- Reflect Cost
-	WriteByte(Sys3+0x2000,0) -- Reflera Cost
-	WriteByte(Sys3+0x2030,0) -- Reflega Cost
-	WriteByte(Sys3+0xE30,255) -- Twin Howl Cost
-	WriteByte(Sys3+0xFB0,255) -- Bushido Cost
-	WriteByte(Sys3+0x1940,255) -- Red Rocket Cost
-	WriteByte(Sys3+0x3F80,255) -- Speedster Cost
-	WriteByte(Sys3+0x40A0,255) -- Bluff Cost
-	WriteByte(Sys3+0x4430,255) -- Wildcat Cost
-	WriteByte(Sys3+0x49A0,255) -- Dance Call Cost
-	WriteByte(Sys3+0x4B80,255) -- Setup Cost
-	WriteByte(Sys3+0x67D0,255) -- Session Cost
-	WriteByte(Sys3+0x5840,255) -- Trinity Limit Cost
-	WriteByte(Sys3+0x5840+0x1830,255) -- (Solo) Trinity Limit Cost
-	WriteByte(Sys3+0x2E10,255) -- Whirli-Goof Cost
-	WriteByte(Sys3+0x3D40,255) -- Knocksmash Cost
-	WriteByte(Sys3+0x3320,255) -- Comet Cost
-	WriteByte(Sys3+0x3E60,255) -- Duck Flare Cost
-	WriteFloat(0x250D322, 0) -- QR1 Speed
-	WriteFloat(0x250D366, 0) -- QR2 Speed
-	WriteFloat(0x250D3AA, 0) -- QR3 Speed
-	WriteFloat(0x250D3EE, 0) -- QR4 Speed
-	WriteFloat(0x250D432, 0) -- QRAX2 Speed
-	WriteFloat(0x250D31A, 0) -- AD1 Speed
-	WriteFloat(0x250D35E, 0) -- AD2 Speed
-	WriteFloat(0x250D3A2, 0) -- AD3 Speed
-	WriteFloat(0x250D3E6, 0) -- AD4 Speed
-	WriteFloat(0x250D42A, 0) -- ADAX2 Speed
-	WriteFloat(0x250D352, 0) -- Dodge Roll 1
-	WriteFloat(0x250D396, 1) -- Dodge Roll 2
-	WriteFloat(0x250D3DA, 2) -- Dodge Roll 3
-	WriteFloat(0x250D41E, 3) -- Dodge Roll MAX
-	WriteFloat(0x250D462, 4) -- Dodge Roll AX2
-	WriteFloat(0x250D342, 0)
-	WriteFloat(0x250D386, 0)
-	WriteFloat(0x250D3CA, 0)
-	WriteFloat(0x250D40E, 0)
-	WriteFloat(0x250D452, 0)
-	elseif ReadByte(0x444861) == 13 or ReadByte(Now+0) == 0x0A then
-	WriteFloat(Sys3+0x17CE4, 8) -- Base Speed: DS = 8
-	WriteFloat(Sys3+0x17CE0, 2) -- Walking Speed: DS = 2
-	WriteFloat(0x250D332, 16) -- Glide 1 Speed (Default: 16)
-	WriteFloat(0x250D376, 20) -- Glide 2 Speed (Default: 20)
-	WriteFloat(0x250D3BA, 24) -- Glide 3 Speed (Default: 24)
-	WriteFloat(0x250D3FE, 32) -- Glide MAX Speed (Default: 32)
-	WriteFloat(0x250CEC6, 10) -- Aerial Recovery Movement Speed
-	WriteFloat(0x250D322, 18) -- QR1 Speed
-	WriteFloat(0x250D366, 20) -- QR2 Speed
-	WriteFloat(0x250D3AA, 24) -- QR3 Speed
-	WriteFloat(0x250D3EE, 28) -- QR4 Speed
-	WriteFloat(0x250D352, 16) -- Dodge Roll 1
-	WriteFloat(0x250D396, 20) -- Dodge Roll 2
-	WriteFloat(0x250D3DA, 24) -- Dodge Roll 3
-	WriteFloat(0x250D41E, 32) -- Dodge Roll MAX
-	WriteFloat(0x250D31A, 20) -- AD1 Speed
-	WriteFloat(0x250D35E, 20) -- AD2 Speed
-	WriteFloat(0x250D3A2, 20) -- AD3 Speed
-	WriteFloat(0x250D3E6, 20) -- AD4 Speed
+		if ReadShort(Save+0x24F0) == 0x01E4 then 
+		WriteFloat(0x2530B7A, ReadByte(Slot1+0x180) * 6) -- Height
+		WriteFloat(0x2530B8A, ReadByte(Slot1+0x180)) -- Horizontal Distance
+		elseif ReadShort(Save+0x24F0) == 0x01F4 then 
+		WriteFloat(0x2530B7A, ReadByte(Slot1+0x180) * 1.5) -- Height
+		WriteFloat(0x2530B8A, ReadByte(Slot1+0x180) * 4) -- Horizontal Distance
+		else
+		WriteFloat(0x2530B7A, ReadByte(Slot1+0x180) * 3) -- Height
+		WriteFloat(0x2530B8A, ReadByte(Slot1+0x180) * 2) -- Horizontal Distance
+		end
+		if ReadShort(Save+0x24F0) == 0x01F3 then
+		WriteByte(Slot1+0x184, 200)
+		elseif ReadShort(Save+0x24F0) == 0x01E1 then
+		WriteByte(Slot1+0x184, 20)
+		elseif ReadShort(Save+0x24F0) == 0x01EC then
+		WriteFloat(soraGravityPointer, 4, true)
+		WriteByte(Slot1+0x184, 60)
+		elseif ReadShort(Save+0x24F0) == 0x01EF then
+		WriteFloat(soraGravityPointer, 64, true)
+		WriteByte(Slot1+0x184, 120)
+		elseif ReadShort(Save+0x24F0) == 0x02B then
+		WriteFloat(soraGravityPointer, 16, true)
+		else
+		WriteFloat(soraGravityPointer, 16, true)
+		WriteByte(Slot1+0x184, 120)
+		end
+		if _CurrAnimPointer == 181 then
+			WriteFloat(animpointer, 3, true)
+			WriteByte(Slot1+0x180, 0)
+		else WriteFloat(animpointer, 1, true)
+		end
+	elseif L2 == false and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A then
+		if ReadByte(0x24795F1-0x56454E) == 1 then
+		WriteByte(Slot1+0x180, CurrStorage)
+		WriteByte(Slot1+0x184, MaxStorage)
+		WriteByte(0x24795F1-0x56454E, 2)
+		end
+	WriteFloat(animpointer, 1, true)
+	WriteFloat(soraGravityPointer, 16, true)
+	WriteByte(0x24795F2-0x56454E, 0)
+	WriteByte(0x24795F1-0x56454E, 0)
+	WriteByte(0x24795F3-0x56454E, 0)
 	WriteByte(Sys3+0x9E0,12) -- Fire Cost
 	WriteByte(Sys3+0x15E0,12) -- Fira Cost
 	WriteByte(Sys3+0x1610,12) -- Firaga Cost
@@ -183,73 +178,15 @@ local soraGravityPointer=ReadLong(0x1B2512)+0x138
 	WriteByte(Sys3+0x1FD0,10) -- Reflect Cost
 	WriteByte(Sys3+0x2000,10) -- Reflera Cost
 	WriteByte(Sys3+0x2030,10) -- Reflega Cost
-	WriteByte(Sys3+0x5840+0x1830,255) -- (Solo) Trinity Limit Cost
-	WriteFloat(0x250D342, 0.91)
-	WriteFloat(0x250D386, 0.93)
-	WriteFloat(0x250D3CA, 0.95)
-	WriteFloat(0x250D40E, 0.97)
-	WriteFloat(0x250D452, 0.98)
+	WriteFloat(0x2530B7A, 21) -- Height
+	WriteFloat(0x2530B8A, 8) -- Horizontal Distance
+	Oblivion = 60
 	end
-	if ReadByte(Slot1+0x180) < ReadByte(Slot1+0x184) and Reverse == false and ReadByte(Save+0x3524) == 0 and ReadShort(0x6877DA) == 0 and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A and ReadShort(Save+0x24F0) ~= 0x01F3 and ReadShort(Save+0x24F0) ~= 0x002B and ReadShort(Save+0x24F0) ~= 0x01E1 then
-	WriteByte(Slot1+0x180, ReadByte(Slot1+0x180) + 1)
-	elseif ReadByte(Slot1+0x180) < ReadByte(Slot1+0x184) and Reverse == false and ReadByte(Save+0x3524) == 0 and ReadShort(0x6877DA) == 0 and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A and ReadShort(Save+0x24F0) == 0x01F3 then
-	Fenrir = Fenrir - 1
-		if Fenrir <= 0 then
-		WriteByte(Slot1+0x180, ReadByte(Slot1+0x180) + 1)
-		Fenrir = 2
-		end
-	elseif ReadByte(Save+0x3524) == 0 and ReadShort(0x6877DA) == 0 and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A and ReadShort(Save+0x24F0) == 0x002B then
-	Random = Random - 1
-		if Random <= 0 then
-		WriteByte(Slot1+0x180, math.random(1, 150))
-		Random = 60
-		end
-	elseif ReadByte(Slot1+0x180) < ReadByte(Slot1+0x184) and ReadByte(Save+0x3524) == 0 and ReadShort(0x6877DA) == 0 and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A and ReadShort(Save+0x24F0) == 0x01E1 then
-	Dragon = Dragon - 1
-		if Dragon <= 0 and Reverse == false then
-		WriteByte(Slot1+0x180, ReadByte(Slot1+0x180) + 1)
-		Dragon = 5
-		elseif ReadByte(Slot1+0x180) == ReadByte(Slot1+0x184) and Reverse == false then
-		Reverse = true
-		elseif Dragon <= 0 and ReadByte(Slot1+0x180) > 1 and Reverse == true then
-		WriteByte(Slot1+0x180, ReadByte(Slot1+0x180) - 1)
-		Dragon = 5
-		elseif ReadByte(Slot1+0x180) == 1 and Reverse == true then
-		Reverse = false
-		end
-	elseif ReadByte(Slot1+0x180) == ReadByte(Slot1+0x184) and Reverse == false then
-	Reverse = true
-	elseif ReadByte(Slot1+0x180) > 1 and Reverse == true and ReadByte(Save+0x3524) == 0 and ReadShort(0x6877DA) == 0 and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A then
-	WriteByte(Slot1+0x180, ReadByte(Slot1+0x180) - 1)
-	elseif ReadByte(Slot1+0x180) == 1 and Reverse == true then
-	Reverse = false
-	end
-	--Fenrir gives +25 PW, but decreases charge time
-	if ReadShort(Save+0x24F0) == 0x01F3 then
-	WriteByte(Slot1+0x184, 145)
-	elseif ReadShort(Save+0x24F0) == 0x01EC then
-	WriteByte(Slot1+0x184, 70)
-	elseif ReadShort(Save+0x24F0) == 0x01E1 then
-	WriteByte(Slot1+0x184, 40)
-	else
-	WriteByte(Slot1+0x184, 120)
-	end
-	--Ultima Weapon increases distance, but decreases height. Hero's Crest increases height, but decreases distance
-	if ReadShort(Save+0x24F0) == 0x01F4 then
-	WriteFloat(0x2530B8A, ReadByte(Slot1+0x180) * 2)
-	WriteFloat(0x2530B7A, ReadByte(Slot1+0x180) * 2)
-	elseif ReadShort(Save+0x24F0) == 0x01E4 then
-	WriteFloat(0x2530B8A, ReadByte(Slot1+0x180) * 0.75)
-	WriteFloat(0x2530B7A, ReadByte(Slot1+0x180) * 8)
-	elseif ReadShort(Save+0x24F0) ~= 0x01F4 and ReadShort(Save+0x24F0) ~= 0x01E4 then
-	WriteFloat(0x2530B8A, ReadByte(Slot1+0x180) * 1.25)
-	WriteFloat(0x2530B7A, ReadByte(Slot1+0x180) * 4)
-	end
-	if ReadShort(Save+0x24F0) == 0x01EC then
-	WriteFloat(soraGravityPointer, 8, true)
-	elseif ReadShort(Save+0x24F0) == 0x01F0 then --Mysterious Abyss increases Terminal Velocity
-	WriteFloat(soraGravityPointer, 48, true)
-	elseif ReadShort(Save+0x24F0) ~= 0x01F0 and ReadShort(Save+0x24F0) ~= 0x01EC then
-	WriteFloat(soraGravityPointer, 16, true)
-	end
+WriteFloat(0x250D342, 0)
+WriteFloat(0x250D386, 0)
+WriteFloat(0x250D3CA, 0)
+WriteFloat(0x250D40E, 0)
+WriteFloat(0x250D452, 0)
+WriteFloat(Sys3+0x17CE4, 2) -- Base Speed: DS = 8
+WriteFloat(Sys3+0x17CE0, 1) -- Walking Speed: DS = 2
 end
