@@ -52,7 +52,7 @@ local L2 = ReadLong(0x2494573) > 500000 and ReadLong(0x2494573) < 1000000
 	elseif L2 == true and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A and ReadByte(Save+0x3524) == 0 and ReadByte(Slot1+0x180) > 0 then --If L2 is pressed
 		if ReadByte(0x24795F1-0x56454E) == 0 or ReadByte(0x24795F1-0x56454E) == 2 then
 		CurrStorage = ReadByte(Slot1+0x180)
-		MaxStorage = ReadByte(Slot1+0x184)
+		MaxStorage = 120
 		WriteByte(0x24795F1-0x56454E, 1)
 		end
 		if ReadByte(0x24795F2-0x56454E) == 0 then
