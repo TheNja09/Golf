@@ -1,5 +1,5 @@
 title: Golf
-description: Welcome to Golf! In this mod, your MP bar has become your power meter, and your only way to efficiently move is to do a base aerial hit! The higher your current MP, the farther you will go! In this mod, magic spells, besides limits, are completely free, but STT and PL are excluded from this mod's gimmick. You may use Dodge Rolls to travel, but be warned! They have significantly less iFrames! Drive forms and other melee hits are exempt to the power meter gimmick, but while in a form, you have very low movement speed, and all magic costs 255 MP! Good luck!
+description: Welcome to Golf! In this mod, your MP bar has become your power meter, and while holding L2, you may begin charging your bar to set a power for your swing! To swing, just do a base aerial hit while holding L2; your distance traveled will be based off how much power you had at the time of the swing! Some keyblades offer different abilities to your power meter or distance, so make sure to get them all! Keep in mind that magic will instantly deplete if you cast while charging. Good luck!
 assets:
 - name: msg/jp/sys.bar
   multi:
