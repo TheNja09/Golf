@@ -153,7 +153,7 @@ local L2 = ReadLong(0x2494573) > 500000 and ReadLong(0x2494573) < 1000000
 		else WriteFloat(animpointer, 1, true)
 		end
 	elseif L2 == false and ReadByte(0x444861) ~= 13 and ReadByte(Now+0) ~= 0x0A and ReadByte(Save+0x3524) == 0 then
-		if ReadByte(0x24795F1-0x56454E) == 1 then
+		if ReadByte(0x24795F1-0x56454E) == 1 and ReadByte(Slot1+0x180) < ReadByte(Slot1+0x184) then
 		WriteByte(Slot1+0x180, CurrStorage)
 		WriteByte(Slot1+0x184, MaxStorage)
 		WriteByte(0x24795F1-0x56454E, 2)
