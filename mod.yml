@@ -1,4 +1,4 @@
-title: Golf
+title: Golf (WIP)
 description: Welcome to Golf! In this mod, your MP bar has become your power meter, and while holding L2, you may begin charging your bar to set a power for your swing! To swing, just do a base aerial hit while holding L2; your distance traveled will be based on how much power you had at the time of the swing! Some keyblades offer different abilities to your power meter or distance, so make sure to get them all! Keep in mind that magic will instantly deplete if you cast while charging. Good luck!
 assets:
 - name: msg/jp/sys.bar
